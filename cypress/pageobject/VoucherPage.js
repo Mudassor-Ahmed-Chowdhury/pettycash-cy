@@ -135,7 +135,6 @@ class VoucherPage
     }
     Vouchernumber()
     {
-        //cy.get(".flex.w-full.justify-start.space-x-2").then($el => { const textContent = $el.text()});
         cy.get(".flex.w-full.justify-start.space-x-2")
             .then($el => {
                 const textContent = $el.text();

@@ -4,7 +4,6 @@ module.exports = {
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
     },
-    //baseUrl: 'http://sutaay.com',
     pageLoadTimeout: 120000,
     experimentalRunAllSpecs: true,
     setupNodeEvents(on,config){

@@ -40,7 +40,7 @@ describe('Initiator -Bills Create', () => {
         bp.setDeskchair('101');
         cy.wait(3000);
         bp.setPcaccesories('111');
-        //bp.Select_voucher();
+        bp.Select_voucher();
         bp.Createbutton();
         cy.wait(2000);
 

@@ -19,7 +19,7 @@ class Login
    VerifyLogin()
    {
        cy.get("div[class='title mb-4 print:hidden']")
-           .wait(3000).should('have.text','Dashboard');
+           .wait(3000).should('have.text','Dashboard').wait(3000);
    }
 
    Verifyinvalid_email_password()

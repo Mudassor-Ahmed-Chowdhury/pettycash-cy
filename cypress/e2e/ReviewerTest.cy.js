@@ -1,6 +1,8 @@
 import VoucherPage from "../pageobject/VoucherPage";
 import LoginPage from "../pageobject/LoginPage";
 import BalancePage from "../pageobject/BalancePage";
+import QueriesPage from "../pageobject/QueriesPage";
+import GlobalPage from "../pageobject/GlobalPage";
 
 describe("Reviewer review the voucher & approver approve the voucher", () => {
     it("Verify the reviewer & approver perfom well enough", () =>{
@@ -37,28 +39,33 @@ describe("Reviewer review the voucher & approver approve the voucher", () => {
         vc.Submit_resolve();
     });
 
-    it("Verify approver approve the voucher", () =>{
+    it("Verify verified the review from queries then approver approve the verified voucher", () =>{
         cy.set1080pViewport();
         cy.visit("http://sutaay.com/login");
         const ln = new LoginPage();
         const vc = new VoucherPage();
         const bap = new BalancePage();
+        const qr = new QueriesPage();
+        const gp = new GlobalPage();
+
         ln.setEmail("manager@pc.com");
         ln.setPassword("password");
         ln.Loginbutton();
         ln.VerifyLogin();
-        vc.Voucher_siderbar();
-        vc.Voucher_details();
-        vc.Vouchernumber();
-        vc.Voucher_reviews();
-        vc.Voucherverify();
-        vc.Verifyvoucher();
+
+        //Reviewer verify the review then approve the verified review
+        qr.Querissidebar();
+        qr.Queriesvouchernumber();
+        qr.Queriesvouchercursor();
+        qr.Vouchermatches();
+        qr.Queriesvouchercreatedby();
+        gp.Navigatetoback();
+        qr.Queriesverify();
+        qr.Queriesverifyvoucher();
         vc.Voucher_details();
         vc.Voucherapprove();
         vc.Verifyapprove();
         bap.Balancesidebar();
-
-
 
     })
 

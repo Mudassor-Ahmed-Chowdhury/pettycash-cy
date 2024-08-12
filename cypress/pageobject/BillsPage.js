@@ -5,9 +5,9 @@ class Bills
       cy.xpath("/html[1]/body[1]/div[1]/div[1]/aside[1]/div[1]/ul[1]/li[3]/a[1]" )
           .wait(3000).click();
   }
-  Addnew()
+  Addnew()//Create Bill
   {
-      cy.xpath("(//button[@class='text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg dark:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 hover:bg-blue-800 dark:hover:bg-blue-700 !rounded-full text-sm px-4 py-2 inline-flex items-center'])[1]")
+      cy.xpath("(//span[normalize-space()='Create Bill'])[1]")
           .wait(3000).click();
   }
 
@@ -72,8 +72,10 @@ class Bills
   }
   Createbutton()
   {
-      cy.get("button[class='text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg dark:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 hover:bg-blue-800 dark:hover:bg-blue-700 !rounded-full text-sm px-4 py-2 inline-flex items-center']")
-          .click();
+      cy.get("(//span[normalize-space()='Create'])[1]")
+          .then($el =>{
+              cy.wrap($el).as('btn').click();
+      })
   }
   Billsamount()
   {
@@ -87,7 +89,8 @@ class Bills
           .should('have.text', 'Bill created successfully');
   }
 
-  Select_voucher() {
+  Select_voucher()
+  {
         cy.get("select[class='w-full text-gray-900 bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 p-2.5 text-sm border border-gray-300 rounded-lg']")
             .then($select => {
                 const options = $select.find('option')
@@ -102,5 +105,64 @@ class Bills
                 cy.log(`Random option selected is ${options[randomIndex].innerText}`);
             });
     }
+
+    Billlistmatcheswithexpenselist()
+    {
+        this.FetchexpensecategoryLists();
+        this.CheckExpenseList();
+
+        cy.get('@listItems').then(listItems => {
+            cy.log(`List Items Length: ${listItems.length}`);
+            cy.log(`List Items: ${JSON.stringify(listItems)}`);
+        });
+
+        cy.get('@ulContents').then(ulContents => {
+            cy.log(`UL Contents Length: ${ulContents.length}`);
+            cy.log(`UL Contents: ${JSON.stringify(ulContents)}`);
+        });
+
+        cy.get('@listItems').then(listItems => {
+            cy.get('@ulContents').then(ulContents => {
+                cy.log(`Comparing List Items: ${listItems} with UL Contents: ${ulContents}`);
+                expect(listItems).to.deep.equal(ulContents);
+            });
+        });
+    }
+
+   CheckExpenseList()
+   {
+    cy.get("div[class='absolute top-full left-0 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10'] div:nth-child(2)")
+        .should('be.visible')
+        .then($container => {
+            cy.wrap($container).xpath("//ul[@class='treeview']")
+                .find('li')
+                .then($liElements => {
+                    let liTexts = [];
+                    $liElements.each((index, li) => {
+                        liTexts.push(Cypress.$(li).text().trim());
+                    });
+                    cy.log(`List Items: [${liTexts.join(', ')}]`);
+                    cy.wrap(liTexts).as('listItems'); // Store list items in alias
+                });
+        });
+}
+
+    FetchexpensecategoryLists()
+    {
+        const expenseCategoriesUrl = 'http://sutaay.com/expense-categories';
+        cy.request('GET', expenseCategoriesUrl).then(response => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(response.body, 'text/html');
+            const ulContents = [...doc.querySelectorAll('ul.treeview li')]
+                .map(li => li.textContent.trim());
+            cy.wrap(ulContents).as('ulContents');
+            cy.log(`Captured UL Contents: ${ulContents}`);
+        });
+    }
+    Billsbackgroudbesidecreatebill()
+    {
+        cy.get(".flex.justify-between.space-x-4.items-center.mb-8").click()
+    }
+
 }
 export default Bills;

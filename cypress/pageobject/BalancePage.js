@@ -86,15 +86,19 @@ class BalancePage {
 
     Reimbursementtablestatuspending()
     {
-        cy.get("div[class='relative overflow-x-auto shadow-md sm:rounded-lg']").within(() => {
-            cy.get("table[class='w-full text-sm text-left text-gray-500 dark:text-gray-400']").within(() => {
+        cy.get("div[class='relative overflow-x-auto shadow-md sm:rounded-lg']")
+            .within(() => {
+            cy.get("table[class='w-full text-sm text-left text-gray-500 dark:text-gray-400']")
+                .within(() => {
                 let pendingCount = 0;
                 cy.get("tbody tr").each(($row) => {
-                    cy.wrap($row).find("td:nth-child(6)").then(($statusColumn) => {
+                    cy.wrap($row).find("td:nth-child(6)")
+                        .then(($statusColumn) => {
                         const statusText = $statusColumn.text().trim();
                         if (statusText === 'pending') {
                             pendingCount++;
-                            cy.wrap($row).find("td:nth-child(8)").then(($actionColumn) => {
+                            cy.wrap($row).find("td:nth-child(8)")
+                                .then(($actionColumn) => {
                                 cy.wrap($actionColumn).find("button").click();
                             });
                         }
@@ -107,15 +111,19 @@ class BalancePage {
     }
 
     Reimbursmenttablestatusapprove() {
-        cy.get("div[class='relative overflow-x-auto shadow-md sm:rounded-lg']").within(() => {
-            cy.get("table[class='w-full text-sm text-left text-gray-500 dark:text-gray-400']").within(() => {
+        cy.get("div[class='relative overflow-x-auto shadow-md sm:rounded-lg']")
+            .within(() => {
+            cy.get("table[class='w-full text-sm text-left text-gray-500 dark:text-gray-400']")
+                .within(() => {
                 let approvedCount = 0;
                 cy.get("tbody tr").each(($row) => {
-                    cy.wrap($row).find("td:nth-child(6)").then(($statusColumn) => {
+                    cy.wrap($row).find("td:nth-child(6)")
+                        .then(($statusColumn) => {
                         const statusText = $statusColumn.text().trim();
                         if (statusText === 'approved') {
                             approvedCount++;
-                            cy.wrap($row).find("td:nth-child(8)").then(($actionColumn) => {
+                            cy.wrap($row).find("td:nth-child(8)")
+                                .then(($actionColumn) => {
                                 cy.wrap($actionColumn).find("button").click();
                             });
                         }
@@ -140,21 +148,25 @@ class BalancePage {
 
     Modalrecivedbutton()
     {
-        cy.xpath("//div[@id='headlessui-portal-root']//button[2]//span[1]").as('btn').click();
+        cy.xpath("//div[@id='headlessui-portal-root']//button[2]//span[1]")
+            .as('btn').click();
     }
     Reimbursmentbackground()
     {
-        cy.get("div[class='flex flex-col min-h-screen justify-between transition-all duration-200 px-4 sm:ml-64 pt-[72px] print:p-0 print:sm:ml-0 layout-main-container']").as('btn').click().wait(1000);
+        cy.get("div[class='flex flex-col min-h-screen justify-between transition-all duration-200 px-4 sm:ml-64 pt-[72px] print:p-0 print:sm:ml-0 layout-main-container']")
+            .as('btn').click().wait(1000);
     }
 
     Approvebutton()
     {
-      cy.get("button[class='focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg dark:bg-green-600 dark:focus:ring-green-800 hover:bg-green-800 dark:hover:bg-green-700 !rounded-full text-sm px-4 py-2 inline-flex items-center print:hidden']").as('btn').click().wait(1000);
+      cy.get("button[class='focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg dark:bg-green-600 dark:focus:ring-green-800 hover:bg-green-800 dark:hover:bg-green-700 !rounded-full text-sm px-4 py-2 inline-flex items-center print:hidden']")
+          .as('btn').click().wait(1000);
     }
 
     Verifyapprovebutton()
     {
-        cy.get("button[class='focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg dark:bg-green-600 dark:focus:ring-green-800 hover:bg-green-800 dark:hover:bg-green-700 !rounded-full text-sm px-3 py-1.5 inline-flex items-center']").as('btn').click().wait(1000);
+        cy.get("button[class='focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg dark:bg-green-600 dark:focus:ring-green-800 hover:bg-green-800 dark:hover:bg-green-700 !rounded-full text-sm px-3 py-1.5 inline-flex items-center']").
+        as('btn').click().wait(1000);
     }
 
     Reimbursementbutton()

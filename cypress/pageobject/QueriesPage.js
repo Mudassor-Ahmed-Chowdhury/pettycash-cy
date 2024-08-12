@@ -26,11 +26,6 @@ class QueriesPage{
 
     Queriesvouchernumber()
     {
-        // cy.get("span[class='cursor-pointer bg-[#EFF6FF] border border-[#BFDBFE] rounded-md p-1 font-semibold']").wait(3000)
-        //     .then($el =>{
-        //         const textContent = $el.text();
-        //         cy.wrap(textContent).as('vouchernumber'); take the 1st 10 digit number
-        //     });
         cy.get("span[class='cursor-pointer bg-[#EFF6FF] border border-[#BFDBFE] rounded-md p-1 font-semibold']")
             .wait(3000)
             .then($el => {
@@ -41,7 +36,8 @@ class QueriesPage{
 
     }
 
-    Queriesvouchercursor() {
+    Queriesvouchercursor()
+    {
         cy.xpath("(//img[@class='cursor-pointer'])[1]").then($el => {
             if ($el.is(':visible')) {
                 cy.wrap($el).click();
@@ -68,7 +64,8 @@ class QueriesPage{
             })
     }
 
-    Vouchermatches() {
+    Vouchermatches()
+    {
         //this.Queriesvouchernumber();
         this.Queriesverifyvouchernumber();
         cy.get('@vouchernumber').then(voucherNumber => {
@@ -78,13 +75,14 @@ class QueriesPage{
         });
     }
 
-    Queriesvouchercreatedby() {
+    Queriesvouchercreatedby()
+    {
         cy.get('div[class="border border-gray-200 rounded-lg p-4 pl-8 text-gray-800 text-sm relative bg-[#BC500] h-full"]')
             .contains('Created By')
             .next()
             .invoke('text')
             .then((name) => {
-                cy.wrap(name.trim()).as('createdByName'); // Store the name in an alias
+                cy.wrap(name.trim()).as('createdByName');
             });
 
         cy.get('div[class="border border-gray-200 rounded-lg p-4 pl-8 text-gray-800 text-sm relative bg-[#BC500] h-full"]')
@@ -96,7 +94,8 @@ class QueriesPage{
             });
     }
 
-    Noqueriesfoundyet() {
+    Noqueriesfoundyet()
+    {
         cy.get(".w-full.flex.flex-col.justify-center.items-center.mt-10")
             .then($el => {
                 const textContent = $el.text().trim();

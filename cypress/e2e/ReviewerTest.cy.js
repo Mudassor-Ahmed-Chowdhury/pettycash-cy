@@ -1,20 +1,22 @@
 import VoucherPage from "../pageobject/VoucherPage";
-import LoginPage from "../pageobject/LoginPage";
 import BalancePage from "../pageobject/BalancePage";
 import QueriesPage from "../pageobject/QueriesPage";
 import GlobalPage from "../pageobject/GlobalPage";
 
 describe("Reviewer review the voucher & approver approve the voucher", () => {
-    it("Verify the reviewer & approver perfom well enough", () =>{
-        cy.set1080pViewport();
-        cy.visit("http://sutaay.com/login");
-        const vc = new VoucherPage();
-        const ln = new LoginPage();
+    beforeEach(() => {
+        cy.viewport(Cypress.config('viewportWidth'), Cypress.config('viewportHeight'));
+        cy.visit('/');
+    });
 
-        ln.setEmail("manager@pc.com");
-        ln.setPassword("password");
-        ln.Loginbutton();
-        ln.VerifyLogin();
+    const vc = new VoucherPage();
+    const bap = new BalancePage();
+    const qr = new QueriesPage();
+    const gp = new GlobalPage();
+
+    it("Verify the reviewer & approver perfom well enough", () =>{
+
+        gp.Manageruser();
         vc.Voucher_siderbar();
         vc.Voucher_details();
         vc.Voucher_reviews();
@@ -23,15 +25,8 @@ describe("Reviewer review the voucher & approver approve the voucher", () => {
     });
 
     it("Verify the resolver resolve the review", () => {
-        cy.set1080pViewport();
-        cy.visit("http://sutaay.com/login");
-        const vc = new VoucherPage();
-        const ln = new LoginPage();
 
-        ln.setEmail("stm@pc.com");
-        ln.setPassword("password");
-        ln.Loginbutton();
-        ln.VerifyLogin();
+        gp.Stmuser();
         vc.Voucher_siderbar();
         vc.Voucher_details();
         vc.Voucher_reviews();
@@ -40,21 +35,9 @@ describe("Reviewer review the voucher & approver approve the voucher", () => {
     });
 
     it("Verify verified the review from queries then approver approve the verified voucher", () =>{
-        cy.set1080pViewport();
-        cy.visit("http://sutaay.com/login");
-        const ln = new LoginPage();
-        const vc = new VoucherPage();
-        const bap = new BalancePage();
-        const qr = new QueriesPage();
-        const gp = new GlobalPage();
 
-        ln.setEmail("manager@pc.com");
-        ln.setPassword("password");
-        ln.Loginbutton();
-        ln.VerifyLogin();
-
-        //Reviewer verify the review then approve the verified review
-        qr.Querissidebar();
+        gp.Manageruser();
+        qr.Querissidebar(); //Reviewer verify the review then approve the verified review
         qr.Queriesvouchernumber();
         qr.Queriesvouchercursor();
         qr.Vouchermatches();
@@ -68,7 +51,4 @@ describe("Reviewer review the voucher & approver approve the voucher", () => {
         bap.Balancesidebar();
 
     })
-
-
-
 })

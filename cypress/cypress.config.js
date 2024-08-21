@@ -13,12 +13,12 @@ module.exports = defineConfig({
 
             // Specify the spec patterns for the tests
             config.specPattern = [
-                "cypress/e2e/BalanceTest.cy.js",
-                "cypress/e2e/ExpensseCatTest.cy.js",
-                "cypress/e2e/BillsCreateTest.cy.js",
-                "cypress/e2e/BillsVoucherCreateTest.cy.js",
-                "cypress/e2e/ReviewerTest.cy.js",
-                "cypress/e2e/UserCreateTest.cy.js",
+                "C:\\Users\\SOFTZINO\\cypress\\pettycash-cy\\cypress\\e2e\\BalanceTest.cy.js",
+                "C:\\Users\\SOFTZINO\\cypress\\pettycash-cy\\cypress\\e2e\\ExpensseCatTest.cy.js",
+                "C:\\Users\\SOFTZINO\\cypress\\pettycash-cy\\cypress\\e2e\\BillsCreateTest.cy.js",
+                "C:\\Users\\SOFTZINO\\cypress\\pettycash-cy\\cypress\\e2e\\BillsVoucherCreateTest.cy.js",
+                "C:\\Users\\SOFTZINO\\cypress\\pettycash-cy\\cypress\\e2e\\ReviewerTest.cy.js",
+                "C:\\Users\\SOFTZINO\\cypress\\pettycash-cy\\cypress\\e2e\\UserCreateTest.cy.js",
                 "C:\\Users\\SOFTZINO\\cypress\\pettycash-cy\\cypress\\e2e\\UserEditTest.cy.js"
             ];
 

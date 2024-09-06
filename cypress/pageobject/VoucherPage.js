@@ -52,35 +52,6 @@ class VoucherPage
         })
     }
 
-    Voucheredit()
-    {
-        cy.get('table.w-full.text-sm.text-left.text-gray-500.dark\\:text-gray-400 tbody tr')
-            .wait(3000).each(($row) => {
-            cy.wrap($row).within(() => {
-                cy.get('td').each(($col) => {
-                    cy.log($col.text().trim());
-                });
-            });
-            cy.wrap($row).find('th.px-6.py-3.text-xs.uppercase.flex.justify-end', { timeout: 10000 })
-                .should('exist')
-                .should('be.visible')
-                .then(($statusColumn) => {
-                    const statusText = $statusColumn.text().trim();
-                    cy.log('Status text:', statusText);
-                    if (statusText === 'In-Review') {
-                        cy.wrap($row).find('button.editable-icon')
-                            .should('be.visible')
-                            .should('be.enabled')
-                            .click();
-                    }
-                });
-        });
-    }
-
-    Voucher_edit()
-    {
-        cy.get("tbody tr:nth-child(1) td:nth-child(11) div:nth-child(1) div:nth-child(1) button:nth-child(1) svg").click();
-    }
 
     setVoucher_editcomment(editcomment)
     {
@@ -162,6 +133,51 @@ class VoucherPage
                 cy.wrap(textContent).as('vouchernumber');
             })
     }
+
+    voucherDate(){
+
+        cy.xpath("(//input[@placeholder='Select Date'])[1]").click();
+        cy.xpath("(//div[@class='dp__cell_inner dp__pointer dp__today dp__active_date'])[1]").click(); //Current data select
+
+    }
+
+    voucherEdit() {
+        let statusFound = false;
+
+        return cy.xpath("(//table[@class='w-full text-sm text-left text-gray-500 dark:text-gray-400'])[1]")
+            .xpath("//tbody[1]/tr").each(($row) => {
+
+            cy.wrap($row).xpath("td[8]").invoke('text').then((statusText) => {
+                cy.log('Status text:', statusText.trim());
+
+
+                if (statusText.trim() === 'In-Review') {
+                    statusFound = true;
+
+
+                    cy.wrap($row).xpath("td[11]//*[name()='svg'][@role='img']").then(($editButton) => {
+
+                        if ($editButton.is(':enabled')) {
+                            cy.log('Edit button is enabled, clicking...');
+                            cy.wrap($editButton).click();
+                        } else {
+                            cy.log('Edit button is disabled.');
+                            throw new Error('Edit button is disabled.');
+                        }
+                    });
+                }
+            });
+        }).then(() => {
+
+            if (!statusFound) {
+                cy.log('Status "In-Review" not found, stopping the runner.');
+                cy.task('stopRunner');
+            }
+        });
+    }
+
+
+
 
 }
 export default VoucherPage

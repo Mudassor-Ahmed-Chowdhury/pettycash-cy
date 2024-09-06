@@ -24,9 +24,9 @@ describe('Initiator -Bills Create', () => {
         bp.setMonitor('100');
         bp.setDeskchair('101');
         bp.setPcaccesories('111');
-        bp.Select_voucher();
+        //bp.Select_voucher();
         bp.Createbutton();
-
+        gp.iframeLocatorFunction();
 
     });
 

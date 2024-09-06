@@ -6,19 +6,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "pettycash": "npx cypress run --headed --browser chrome --spec C:\\Users\\SOFTZINO\\cypress\\pettycash-cy\\cypress\\e2e /**/*",
     "generate-multi-cucmber-html-report": "node cypress \\ cypress/cucumber-html-report.js"
-
   },
   "author": "mudassor",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cypress-grep": "^3.0.4",
     "cypress-plugin-steps": "^1.1.1",
     "cypress-xpath": "^2.0.1"
   },
   "devDependencies": {
     "@cypress/xpath": "^2.0.3",
     "@shelex/cypress-allure-plugin": "^2.40.2",
-    "cypress": "^13.13.0",
+    "cypress": "^13.13.3",
     "cypress-if": "^1.12.3",
     "cypress-mochawesome-reporter": "^3.8.2",
     "cypress-wait-until": "^3.0.1",

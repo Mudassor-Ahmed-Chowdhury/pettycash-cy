@@ -53,6 +53,31 @@ class GlobalPage {
     {
         cy.xpath("/html[1]/body[1]/div[1]/div[1]/aside[1]/div[1]").wait(3000).click()
     }
+
+
+    checkIframe() {
+        return cy.xpath("//body//div//iframe").then(($iframe) => {
+            if ($iframe.length === 0) {
+                cy.log('Iframe is not present, continuing the test...');
+                return null; // Return null if iframe not found
+            }
+            return $iframe; // Return iframe if found
+        });
+    }
+
+    iframeLocatorFunction() {
+        return this.checkIframe().then($iframe => {
+            if ($iframe === null) {
+                cy.log('Iframe not found, test case successful');
+                return this;
+            }
+
+            throw new Error('Iframe was found, which is unexpected.');
+        });
+    }
+
+
+
 }
 
 export default GlobalPage;

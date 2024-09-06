@@ -72,7 +72,7 @@ class Bills
   }
   Createbutton()
   {
-      cy.get("(//span[normalize-space()='Create'])[1]")
+      cy.xpath("(//div[@class='flex flex-row justify-end'])[1]").xpath("(//span[normalize-space()='Create'])[1]")
           .then($el =>{
               cy.wrap($el).as('btn').click();
       })
